@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="jp.gr.java_conf.tenpokei.myshoppinglist.common.MainActivity">
+    <item
+        android:id="@+id/action_delete_checked_items"
+        android:orderInCategory="100"
+        android:title="@string/action_delete_checked_items"
+        android:icon="@drawable/ic_delete_checked_item"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_item_refresh_list"
+        android:orderInCategory="200"
+        android:title="@string/action_refresh_list"
+        android:icon="@drawable/ic_refresh_list"
+        app:showAsAction="ifRoom" />
+</menu>

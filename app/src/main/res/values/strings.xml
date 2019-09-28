@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">My Shopping List</string>
+
+    <string name="navigation_menu_open">Open</string>
+    <string name="navigation_menu_close">Close</string>
+    <string name="navigation_menu_import">Import</string>
+    <string name="navigation_menu_license">License</string>
+
+    <string name="action_delete_checked_items">Delete Checked Items</string>
+    <string name="action_refresh_list">Refresh List</string>
+
+    <string name="caption_shopping_item">Item</string>
+    <string name="caption_memo">Memo</string>
+
+
+    <string name="empty"></string>
+    <string name="title_activity_single">SingleActivity</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+</resources>

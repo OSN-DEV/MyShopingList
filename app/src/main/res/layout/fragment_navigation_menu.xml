@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragment.NavigationMenu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryDark"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/basic_margin"
+            android:src="@drawable/ic_app" />
+
+        <TextView
+            style="@style/BasicTextStyle"
+            android:layout_gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/primaryText" />
+
+        <TextView
+            android:id="@+id/appVersion"
+            style="@style/BasicTextStyle"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/half_margin"
+            android:layout_marginBottom="@dimen/basic_margin"
+            android:textColor="@color/primaryText"
+            android:textSize="@dimen/small_font_size"
+            tools:text="ver1.0.0(Build 2019100601)" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/menuImport"
+        style="@style/NavigationMenuItemStyle">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_import" />
+
+        <TextView
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:text="@string/navigation_menu_import" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menuLicense"
+        style="@style/NavigationMenuItemStyle">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_license" />
+
+        <TextView
+            style="@style/BasicTextStyle"
+            android:layout_width="match_parent"
+            android:layout_gravity="center_vertical"
+            android:text="@string/navigation_menu_license" />
+    </LinearLayout>
+
+</LinearLayout>
