@@ -21,8 +21,10 @@ class LicenseFragment : BaseFragment() {
         return context.getString(R.string.title_license)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         var view = inflater.inflate(R.layout.fragment_license, container, false)
         this.showLicense(view.license)
         return view
@@ -30,12 +32,12 @@ class LicenseFragment : BaseFragment() {
 
     /**
      * show license text from text file
-     * @param view : textview for display license
+     * @param license : textview for display license
      */
-    private fun showLicense(view: TextView) {
+    private fun showLicense(license: TextView) {
         val source = resources.openRawResource(R.raw.license)
         val reader = BufferedReader(InputStreamReader(source))
-        view.text = reader.use { it.readText() }
+        license.text = reader.use { it.readText() }
     }
 
     companion object {

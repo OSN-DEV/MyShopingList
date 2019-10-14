@@ -3,18 +3,14 @@ package jp.gr.java_conf.tenpokei.myshoppinglist.common
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
 import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.LicenseFragment
-
-import kotlinx.android.synthetic.main.activity_single.*
 import java.security.InvalidParameterException
 
-private const val KeyScreenType = "SingleActivity.ScreenType"
+private const val KeyScreenType = "SingleActivity.KeyScreenType"
 
 /**
  * screen which has only one fragment.

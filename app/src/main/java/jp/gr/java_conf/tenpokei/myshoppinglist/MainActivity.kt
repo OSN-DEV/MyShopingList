@@ -18,6 +18,7 @@ import jp.gr.java_conf.tenpokei.myshoppinglist.common.SingleActivity
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.ImportClickEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.LicenseClickEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.NavigationMenu
+import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.ShoppingItemEditFragment
 import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.ShoppingListFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -70,14 +71,12 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
 
-            val intent = Intent(this, SingleActivity::class.java)
-            startActivity(intent)
-            /*
+
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()
             val transition = supportFragmentManager.beginTransaction()
 //        var shoppingList = ShoppingListFragment.newInstance()
-            var shoppingList =  ShoppingItemEditFragment.newInstance()
+            var shoppingList =  ShoppingItemEditFragment.newInstance(ShoppingItemEditFragment.IdNew)
             transition.replace(R.id.container, shoppingList)
             transition.addToBackStack(null)
 
@@ -92,7 +91,6 @@ class MainActivity : AppCompatActivity() {
 
 //            _toggle.syncState()
 
-             */
 
         }
     }
@@ -101,20 +99,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        super.onBackPressed()
-
-        if (0 < supportFragmentManager.backStackEntryCount) {
-            return
-        }
-        this.finish()
+//        super.onBackPressed()
+//
+//        if (0 < supportFragmentManager.backStackEntryCount) {
+//            return
+//        }
+//        this.finish()
 
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
+//        menuInflater.inflate(R.menu.menu_main, menu)
+//        return true
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -133,7 +131,6 @@ class MainActivity : AppCompatActivity() {
             android.R.id.accessibilityActionContextClick -> true
             else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item);
     }
 
 

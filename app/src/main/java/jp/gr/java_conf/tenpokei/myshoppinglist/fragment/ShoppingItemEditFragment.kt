@@ -1,46 +1,76 @@
 package jp.gr.java_conf.tenpokei.myshoppinglist.fragment
 
 
+import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
+import jp.gr.java_conf.tenpokei.myshoppinglist.common.BaseFragment
+
+private const val KeyId = "ShoppingItemEditFragment.KeyId"
 
 /**
- * A simple [Fragment] subclass.
+ * shopping item edit fragment
  */
-class ShoppingItemEditFragment : Fragment() {
+class ShoppingItemEditFragment : BaseFragment() {
+
+    override fun getTitle(context: Context): String {
+        return context.getString(R.string.title_shopping_item_edit)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_shopping_item_edit, container, false)
     }
 
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return true
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        if (IdNew == arguments?.getInt(KeyId) ?: IdNew) {
+            inflater?.inflate(R.menu.menu_edit_item_new, menu)
+        } else {
+            inflater?.inflate(R.menu.menu_edit_item_edit, menu)
+        }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when (item.itemId) {
+            R.id.action_save_item -> {
+                return true
+            }
+            else -> return true
+        }
+    }
+
+
+    /**
+     * save item
+     */
+    private fun saveItem() {
+
+    }
+
+
     companion object {
+        const val IdNew = -1
+
         /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
+         * create instance
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ShoppingListFragment.
+         * @param id id. if -1 then new record
+         * @return new instance
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() =
-            ShoppingItemEditFragment()
+        fun newInstance(id: Int) =
+            ShoppingItemEditFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(KeyId, id)
+                }
+            }
     }
 
 }
