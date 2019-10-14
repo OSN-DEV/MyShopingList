@@ -1,4 +1,4 @@
-package jp.gr.java_conf.tenpokei.myshoppinglist.common
+package jp.gr.java_conf.tenpokei.myshoppinglist
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,10 +11,15 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import jp.gr.java_conf.tenpokei.myshoppinglist.R
-import jp.gr.java_conf.tenpokei.myshoppinglist.SingleActivity
+import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
+import jp.gr.java_conf.tenpokei.myshoppinglist.common.SingleActivity
+import jp.gr.java_conf.tenpokei.myshoppinglist.event.ImportClickEvent
+import jp.gr.java_conf.tenpokei.myshoppinglist.event.LicenseClickEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.NavigationMenu
 import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.ShoppingListFragment
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 class MainActivity : AppCompatActivity() {
@@ -48,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        var navigationMenuFr = NavigationMenu.newInstance("","");
+        var navigationMenuFr = NavigationMenu.newInstance()
         val transition = supportFragmentManager.beginTransaction()
         transition.replace(R.id.navigationManuContainer, navigationMenuFr)
 
@@ -92,6 +97,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
+    }
+
+
     override fun onBackPressed() {
 
         super.onBackPressed()
@@ -127,5 +143,17 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @SuppressWarnings("unused")
+    fun onMessageEvent(args: ImportClickEvent) {
+        LogUtil.debug("ImportClickEvent received")
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @SuppressWarnings("unused")
+    fun onMessageEvent(args: LicenseClickEvent) {
+        LogUtil.debug("LicenseClickEvent received")
     }
 }

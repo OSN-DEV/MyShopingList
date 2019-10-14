@@ -59,17 +59,17 @@ class ShoppingListFragment : Fragment(),
             val deleteItem: ImageButton = view.deleteItem
             init {
                 shoppingItemRow.setOnClickListener { _ ->
-                    Log.d("####","rowrow")
+                    Log.d("####","shoppingItemRow")
                 }
                 done.setOnCheckedChangeListener{view, isChecked  ->
-                    Log.d("####","AAAAA")
+                    Log.d("####","setOnCheckedChangeListener")
                     listener.onDoneCheckedChanged(1)
                 }
                 shoppingItem.setOnClickListener { _ ->
-                    Log.d("####","AAAAA")
+                    Log.d("####","shoppingItem")
                 }
                 deleteItem.setOnClickListener { _ ->
-                    Log.d("####","AAAAA")
+                    Log.d("####","deleteItem")
                 }
             }
 
