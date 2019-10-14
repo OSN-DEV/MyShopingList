@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="@dimen/basic_margin"
-    tools:context=".fragment.ShoppingItemEdit">
+    tools:context=".fragment.ShoppingItemEditFragment">
 
     <TableRow
         android:layout_width="match_parent"

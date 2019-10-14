@@ -14,6 +14,8 @@
 
 
     <string name="empty"></string>
+    <string name="title_license">License</string>
+
     <string name="title_activity_single">SingleActivity</string>
     <string name="action_settings">Settings</string>
 

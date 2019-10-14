@@ -1,6 +1,7 @@
 package jp.gr.java_conf.tenpokei.myshoppinglist
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -8,6 +9,7 @@ import android.view.MenuItem
 
 import kotlinx.android.synthetic.main.activity_main.*
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -23,8 +25,6 @@ import org.greenrobot.eventbus.ThreadMode
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var _toggle: ActionBarDrawerToggle
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 //                .setAction("Action", null).show()
             val transition = supportFragmentManager.beginTransaction()
 //        var shoppingList = ShoppingListFragment.newInstance()
-            var shoppingList =  ShoppingItemEdit.newInstance()
+            var shoppingList =  ShoppingItemEditFragment.newInstance()
             transition.replace(R.id.container, shoppingList)
             transition.addToBackStack(null)
 
@@ -97,15 +97,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().unregister(this)
-    }
 
 
     override fun onBackPressed() {
@@ -145,15 +136,59 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    // *****************************************************************************************************************************
+    private lateinit var _toggle: ActionBarDrawerToggle
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        _toggle.syncState()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        _toggle.syncState()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        EventBus.getDefault().unregister(this)
+    }
+
+    /**
+     * import menu click event from navigation menu
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     @SuppressWarnings("unused")
     fun onMessageEvent(args: ImportClickEvent) {
         LogUtil.debug("ImportClickEvent received")
+        this.closeMenu()
     }
 
+    /**
+     * license menu click event from navigation menu
+     */
     @Subscribe(threadMode = ThreadMode.MAIN)
     @SuppressWarnings("unused")
     fun onMessageEvent(args: LicenseClickEvent) {
         LogUtil.debug("LicenseClickEvent received")
+        this.closeMenu()
+
+        val intent = SingleActivity.createIntent(this, SingleActivity.ScreenType.License)
+        startActivity(intent)
+    }
+
+    /**
+     * close navigation drawer
+     */
+    private fun closeMenu() {
+        navigationMenu.closeDrawer(Gravity.LEFT)
+        _toggle.syncState()
     }
 }

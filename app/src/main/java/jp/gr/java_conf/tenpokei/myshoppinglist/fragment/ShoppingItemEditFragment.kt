@@ -12,7 +12,7 @@ import jp.gr.java_conf.tenpokei.myshoppinglist.R
 /**
  * A simple [Fragment] subclass.
  */
-class ShoppingItemEdit : Fragment() {
+class ShoppingItemEditFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,7 +40,7 @@ class ShoppingItemEdit : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-            ShoppingItemEdit()
+            ShoppingItemEditFragment()
     }
 
 }
