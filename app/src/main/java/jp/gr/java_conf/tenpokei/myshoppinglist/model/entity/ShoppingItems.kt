@@ -1,4 +1,4 @@
-package jp.gr.java_conf.tenpokei.myshoppinglist.data
+package jp.gr.java_conf.tenpokei.myshoppinglist.model.entity
 
 import androidx.annotation.Nullable
 import com.github.gfx.android.orma.annotation.Column;
@@ -10,6 +10,8 @@ import com.github.gfx.android.orma.annotation.Table;
  */
 @Table
 class ShoppingItems {
+    // https://qiita.com/SYABU555/items/9eeaaa2a1172b479b6c4
+
     @PrimaryKey(autoincrement = true)
     var id: Long = 0
 
@@ -20,8 +22,8 @@ class ShoppingItems {
     @Nullable // allows NULL (default: NOT NULL)
     var memo: String? = null
 
-    @Column
-    var isChecked : Boolean = false
+    @Column(defaultExpr = "false")
+    var done : Boolean = false
 
     @Column
     var createdAt : Long = 0
@@ -29,4 +31,5 @@ class ShoppingItems {
 
     @Column
     var modifiedAt : Long = 0
+
 }

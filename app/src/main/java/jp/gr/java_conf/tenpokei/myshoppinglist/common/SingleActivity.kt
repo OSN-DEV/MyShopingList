@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
-import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.LicenseFragment
+import jp.gr.java_conf.tenpokei.myshoppinglist.view.main.LicenseFragment
 import java.security.InvalidParameterException
 
 private const val KeyScreenType = "SingleActivity.KeyScreenType"

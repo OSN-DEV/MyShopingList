@@ -1,6 +1,5 @@
-package jp.gr.java_conf.tenpokei.myshoppinglist
+package jp.gr.java_conf.tenpokei.myshoppinglist.view.main
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +12,11 @@ import android.view.Gravity
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
+import jp.gr.java_conf.tenpokei.myshoppinglist.R
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.SingleActivity
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.ImportClickEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.LicenseClickEvent
-import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.NavigationMenu
-import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.ShoppingItemEditFragment
-import jp.gr.java_conf.tenpokei.myshoppinglist.fragment.ShoppingListFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -53,21 +50,20 @@ class MainActivity : AppCompatActivity() {
             Log.d("##","##")
         }
 
-
-        var navigationMenuFr = NavigationMenu.newInstance()
+        var navigationMenuFr =
+            NavigationMenu.newInstance()
         val transition = supportFragmentManager.beginTransaction()
         transition.replace(R.id.navigationManuContainer, navigationMenuFr)
 
-        var shoppingList = ShoppingListFragment.newInstance()
+        var shoppingList =
+            ShoppingListFragment.newInstance()
         transition.replace(R.id.container, shoppingList)
 
         transition.commit()
 
 
-
         navigationMenu.addDrawerListener(_toggle)
         _toggle.syncState()
-
 
         fab.setOnClickListener { view ->
 
@@ -76,7 +72,10 @@ class MainActivity : AppCompatActivity() {
 //                .setAction("Action", null).show()
             val transition = supportFragmentManager.beginTransaction()
 //        var shoppingList = ShoppingListFragment.newInstance()
-            var shoppingList =  ShoppingItemEditFragment.newInstance(ShoppingItemEditFragment.IdNew)
+            var shoppingList =
+                ShoppingItemEditFragment.newInstance(
+                    ShoppingItemEditFragment.IdNew
+                )
             transition.replace(R.id.container, shoppingList)
             transition.addToBackStack(null)
 
@@ -116,6 +115,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
 //        // Handle action bar item clicks here. The action bar will
 //        // automatically handle clicks on the Home/Up button, so long
 //        // as you specify a parent activity in AndroidManifest.xml.
@@ -132,7 +132,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 
     // *****************************************************************************************************************************

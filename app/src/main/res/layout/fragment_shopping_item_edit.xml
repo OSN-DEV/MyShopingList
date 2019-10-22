@@ -1,48 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="@dimen/basic_margin"
-    tools:context=".fragment.ShoppingItemEditFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TableRow
+    <data>
+
+        <variable
+            name="model"
+            type="jp.gr.java_conf.tenpokei.myshoppinglist.model.view.ShoppingItemEditViewModel" />
+    </data>
+
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/basic_margin"
+        tools:context=".view.main.ShoppingItemEditFragment">
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_marginEnd="@dimen/basic_margin"
-            android:text="@string/caption_shopping_item" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            style="@style/BasicTextStyle"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:hint="@string/empty"
-            android:inputType="text"
-            android:maxLength="50"
-            android:maxLines="1"/>
-    </TableRow>
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_marginEnd="@dimen/basic_margin"
+                android:text="@string/caption_shopping_item" />
 
-    <TableRow
-        android:layout_marginTop="@dimen/basic_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            <EditText
+                style="@style/BasicTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="@string/empty"
+                android:inputType="text"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:text="@={ model.item}" />
+        </TableRow>
 
-        <TextView
-            style="@style/BasicTextStyle"
-            android:layout_marginEnd="@dimen/basic_margin"
-            android:text="@string/caption_memo" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/basic_margin">
 
-        <EditText
-            style="@style/BasicTextStyle"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:hint="@string/empty"
-            android:inputType="textMultiLine"
-            android:maxLines="10"
-            android:maxLength="200"/>
-    </TableRow>
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_marginEnd="@dimen/basic_margin"
+                android:text="@string/caption_memo" />
 
-</TableLayout>
+            <EditText
+                style="@style/BasicTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="@string/empty"
+                android:inputType="textMultiLine"
+                android:maxLength="200"
+                android:maxLines="10"
+                android:text="@={model.memo}"/>
+        </TableRow>
+
+    </TableLayout>
+</layout>

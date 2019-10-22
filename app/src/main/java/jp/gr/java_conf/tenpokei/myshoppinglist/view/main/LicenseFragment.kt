@@ -1,4 +1,4 @@
-package jp.gr.java_conf.tenpokei.myshoppinglist.fragment
+package jp.gr.java_conf.tenpokei.myshoppinglist.view.main
 
 import android.content.Context
 import android.os.Bundle

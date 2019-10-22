@@ -7,7 +7,7 @@
     android:layout_height="80dp"
     android:orientation="horizontal"
     android:padding="@dimen/basic_margin"
-    tools:context=".fragment.ShoppingListFragment"
+    tools:context=".view.main.ShoppingListFragment"
     android:clickable="true">
 
     <CheckBox

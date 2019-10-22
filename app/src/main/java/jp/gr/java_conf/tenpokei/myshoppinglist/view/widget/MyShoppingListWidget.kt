@@ -1,4 +1,4 @@
-package jp.gr.java_conf.tenpokei.myshoppinglist.widget
+package jp.gr.java_conf.tenpokei.myshoppinglist.view.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
