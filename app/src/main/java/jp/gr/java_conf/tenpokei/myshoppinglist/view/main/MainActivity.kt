@@ -15,6 +15,7 @@ import androidx.appcompat.widget.Toolbar
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.SingleActivity
+import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragment
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.ImportClickEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.LicenseClickEvent
 import org.greenrobot.eventbus.EventBus
@@ -50,17 +51,18 @@ class MainActivity : AppCompatActivity() {
             Log.d("##","##")
         }
 
-        var navigationMenuFr =
-            NavigationMenu.newInstance()
-        val transition = supportFragmentManager.beginTransaction()
-        transition.replace(R.id.navigationManuContainer, navigationMenuFr)
+        if (null == savedInstanceState) {
+            val navigationMenuFr =
+                NavigationMenu.newInstance()
+            val transition = supportFragmentManager.beginTransaction()
+            transition.replace(R.id.navigationManuContainer, navigationMenuFr)
 
-        var shoppingList =
-            ShoppingListFragment.newInstance()
-        transition.replace(R.id.container, shoppingList)
+            val shoppingList =
+                ShoppingListFragment.newInstance()
+            transition.replace(R.id.container, shoppingList)
 
-        transition.commit()
-
+            transition.commit()
+        }
 
         navigationMenu.addDrawerListener(_toggle)
         _toggle.syncState()
@@ -98,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-//        super.onBackPressed()
+        super.onBackPressed()
 //
 //        if (0 < supportFragmentManager.backStackEntryCount) {
 //            return
@@ -179,6 +181,17 @@ class MainActivity : AppCompatActivity() {
         val intent = SingleActivity.createIntent(this, SingleActivity.ScreenType.License)
         startActivity(intent)
     }
+
+    /**
+     * Finish fragment
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @SuppressWarnings("unused")
+    fun onMessageEvent(args: FinishFragment) {
+        LogUtil.debug("FinishFragmentEvent received")
+        supportFragmentManager.popBackStack()
+    }
+
 
     /**
      * close navigation drawer

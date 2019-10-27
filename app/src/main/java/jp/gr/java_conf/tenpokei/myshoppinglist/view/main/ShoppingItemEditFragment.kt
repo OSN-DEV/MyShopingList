@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModelProviders
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.BaseFragment
 import jp.gr.java_conf.tenpokei.myshoppinglist.databinding.FragmentShoppingItemEditBinding
-import jp.gr.java_conf.tenpokei.myshoppinglist.model.repository.ShoppingItemsRepository
+import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragment
+import jp.gr.java_conf.tenpokei.myshoppinglist.model.repository.ItemsRepository
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.view.ShoppingItemEditViewModel
+import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 
 private const val KeyId = "ShoppingItemEditFragment.KeyId"
@@ -31,22 +33,24 @@ class ShoppingItemEditFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
         this._binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shopping_item_edit, container, false)
+
         return this._binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        this._viewModel = ViewModelProviders.of(activity!!).get(ShoppingItemEditViewModel::class.java)
+        if (arguments?.getLong(KeyId) != IdNew) {
+            val repo : ItemsRepository by inject()
+            this._viewModel.getItem(arguments!!.getLong(KeyId))
+            this._viewModel.isEdit = false
+        }
+
+        val factory = ShoppingItemEditViewModel.Factory(requireActivity().application)
+        this._viewModel = ViewModelProviders.of(this, factory).get(ShoppingItemEditViewModel::class.java)
         this._binding.apply {
             model = _viewModel
             lifecycleOwner = activity
-        }
-        if (arguments?.getLong(KeyId) != IdNew) {
-            val repo : ShoppingItemsRepository by inject()
-            var data = repo.getShoppingItemById(arguments!!.getLong(KeyId))
-            _viewModel.item.postValue(data.item)
-            _viewModel.memo.postValue(data.memo)
         }
     }
 
@@ -67,6 +71,7 @@ class ShoppingItemEditFragment : BaseFragment() {
 
         when (item.itemId) {
             R.id.action_save_item -> {
+                this.saveItem()
                 return true
             }
             else -> return true
@@ -78,7 +83,8 @@ class ShoppingItemEditFragment : BaseFragment() {
      * save item
      */
     private fun saveItem() {
-
+        this._viewModel.update()
+        EventBus.getDefault().post(FinishFragment())
     }
 
 
