@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.BaseFragment
+import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.databinding.FragmentShoppingItemEditBinding
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragment
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.repository.ItemsRepository
@@ -31,13 +32,14 @@ class ShoppingItemEditFragment : BaseFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        LogUtil.debug("enter")
         setHasOptionsMenu(true)
         this._binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shopping_item_edit, container, false)
-
         return this._binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        LogUtil.debug("enter")
         super.onActivityCreated(savedInstanceState)
 
         if (arguments?.getLong(KeyId) != IdNew) {
@@ -55,8 +57,9 @@ class ShoppingItemEditFragment : BaseFragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        LogUtil.debug("enter")
         super.onCreateOptionsMenu(menu, inflater)
-        if (IdNew == arguments?.getInt(
+        if (IdNew == arguments?.getLong(
                 KeyId
             ) ?: IdNew
         ) {
@@ -68,7 +71,7 @@ class ShoppingItemEditFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
+        LogUtil.debug("enter")
         when (item.itemId) {
             R.id.action_save_item -> {
                 this.saveItem()
@@ -83,6 +86,7 @@ class ShoppingItemEditFragment : BaseFragment() {
      * save item
      */
     private fun saveItem() {
+        LogUtil.debug("enter")
         this._viewModel.update()
         EventBus.getDefault().post(FinishFragment())
     }

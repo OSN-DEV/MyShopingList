@@ -76,7 +76,7 @@ class BlankFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+        // TODO: Update argument type and shoppingItem
         fun onFragmentInteraction(uri: Uri)
     }
 

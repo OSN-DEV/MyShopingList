@@ -1,6 +1,8 @@
 package jp.gr.java_conf.tenpokei.myshoppinglist.model.repository
 
+import androidx.lifecycle.MutableLiveData
 import jp.gr.java_conf.tenpokei.myshoppinglist.MyApplication
+import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.entity.DatabaseHelper
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.data.ItemModel
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.entity.Items
@@ -10,11 +12,6 @@ import jp.gr.java_conf.tenpokei.myshoppinglist.model.entity.Items
  */
 class ItemsRepository {
 
-//    suspend fun selectById(id: Long) : ItemModel  {
-//        val record = DatabaseHelper.getInstance(MyApplication.appContext).selectFromShoppingItems()
-//            .idEq(id).toList().first()
-//        return ItemModel(record.id, record.name ?: "", record.memo)
-//    }
     /**
      * select 'items' by id
      * @param id id
@@ -22,23 +19,26 @@ class ItemsRepository {
     fun selectById(id: Long) : ItemModel  {
         val record = DatabaseHelper.getInstance(MyApplication.appContext).selectFromItems()
             .idEq(id).toList().first()
-        return ItemModel(record.id, record.name ?: "", record.memo)
+        return ItemModel(record.id, record.done, record.shoppingItem,record.memo)
     }
 
     /**
      * select all 'items' record
      */
-    fun selectAll():List<ItemModel>  {
+    fun selectAll():MutableList<MutableLiveData<ItemModel>>  {
+        LogUtil.debug("selectAll() called")
         val record = DatabaseHelper.getInstance(MyApplication.appContext).selectFromItems()
                         .orderByIdAsc().toList()
 
-        var result = ArrayList<ItemModel>()
+        var result = ArrayList<MutableLiveData<ItemModel>>()
         record.forEach {
-            result.add(ItemModel(
-                id = it.id,
-                name = it.name ?: "",
-                memo = it.memo
-            ))
+            result.add(MutableLiveData<ItemModel>().apply {
+                postValue(ItemModel(
+                    id = it.id,
+                    done = it.done,
+                    shoppingItem = it.shoppingItem,
+                    memo = it.memo))
+            })
         }
         return result
     }
@@ -49,8 +49,11 @@ class ItemsRepository {
     fun insert(data: ItemModel) : Long {
         return DatabaseHelper.getInstance(MyApplication.appContext).insertIntoItems(
             Items().apply {
-                name = data.name
+                done = data.done
+                shoppingItem = data.shoppingItem
                 memo = data.memo
+                createdAt = System.currentTimeMillis()
+                modifiedAt = System.currentTimeMillis()
             })
     }
 
@@ -61,11 +64,25 @@ class ItemsRepository {
     fun updateById(data: ItemModel) {
         DatabaseHelper.getInstance(MyApplication.appContext).updateItems()
             .idEq(data.id)
-            .name(data.name)
+            .done(data.done)
+            .shoppingItem(data.shoppingItem)
             .memo(data.memo)
             .modifiedAt(System.currentTimeMillis())
             .execute()
     }
+
+
+    /**
+     * update 'done' by id
+     */
+    fun updateDoneById(id:Long, done: Boolean) {
+        DatabaseHelper.getInstance(MyApplication.appContext).updateItems()
+            .idEq(id)
+            .done(done)
+            .modifiedAt(System.currentTimeMillis())
+            .execute()
+    }
+
 
     /**
      * delete 'items' by id

@@ -16,11 +16,14 @@ class Items {
     var id: Long = 0
 
     @Column(indexed = true)
-    var name: String? = null
+    var shoppingItem: String = ""
 
     @Column
     @Nullable // allows NULL (default: NOT NULL)
     var memo: String? = null
+
+    @Column
+    var done: Boolean = false
 
     @Column
     var createdAt : Long = 0

@@ -1,10 +1,11 @@
 package jp.gr.java_conf.tenpokei.myshoppinglist.model.data
 
 /**
- * MyShoppingItemEdit model
+ * MyShoppingItem model
  */
 data class ItemModel(
     var id: Long,
-    var name: String,
+    var done: Boolean,
+    var shoppingItem: String,
     var memo: String?
 )

@@ -2,7 +2,6 @@ package jp.gr.java_conf.tenpokei.myshoppinglist.model.view
 
 import android.app.Application
 import androidx.databinding.ObservableField
-import androidx.databinding.ObservableLong
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,15 +37,16 @@ class ShoppingItemEditViewModel(val context: Application) : AndroidViewModel(con
 //        _memo.postValue(memo)
 //    }
     var id: Long = 0L
-    var name = ObservableField<String>("")
+    var done: Boolean = false
+    var shoppingItem = ObservableField<String>("")
     var memo: MutableLiveData<String?> = MutableLiveData()
     var isEdit: Boolean = false
 
-    fun setName(name: String) {
-        this.name.set(name)
+    private fun setName(name: String) {
+        this.shoppingItem.set(name)
     }
 
-    fun setMemo(memo: String?) {
+    private fun setMemo(memo: String?) {
         this.memo.value = memo
     }
 
@@ -55,7 +55,7 @@ class ShoppingItemEditViewModel(val context: Application) : AndroidViewModel(con
      */
     fun getItem(id: Long) {
         var data = ItemsRepository().selectById(id)
-        this.setName(data.name)
+        this.setName(data.shoppingItem)
         this.setMemo(data.memo)
     }
 
@@ -65,7 +65,8 @@ class ShoppingItemEditViewModel(val context: Application) : AndroidViewModel(con
     fun update() {
         var item = ItemModel(
             id = this.id,
-            name = this.name.toString(),
+            done = this.done,
+            shoppingItem = this.shoppingItem.get()!!,
             memo = this.memo.value
         )
 

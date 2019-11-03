@@ -32,7 +32,7 @@
                 android:inputType="text"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:text="@={ model.name}" />
+                android:text="@={ model.shoppingItem}" />
         </TableRow>
 
         <TableRow

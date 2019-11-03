@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import jp.gr.java_conf.tenpokei.myshoppinglist.BuildConfig
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
+import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.ImportClickEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.LicenseClickEvent
 import kotlinx.android.synthetic.main.fragment_navigation_menu.view.*
@@ -34,7 +35,7 @@ class NavigationMenu : Fragment() {
      * import menu click
      */
     private fun onImportClick() {
-        Log.d("###", "onImportClick")
+        LogUtil.debug("enter")
         EventBus.getDefault().post(ImportClickEvent())
     }
 
@@ -42,7 +43,7 @@ class NavigationMenu : Fragment() {
      * licence menu click
      */
     private fun onLicenseClick() {
-        Log.d("###", "onLicenseClick")
+        LogUtil.debug("enter")
         EventBus.getDefault().post(LicenseClickEvent())
     }
 
