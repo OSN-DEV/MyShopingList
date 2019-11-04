@@ -3,7 +3,10 @@ package jp.gr.java_conf.tenpokei.myshoppinglist.view.main
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
@@ -24,17 +27,39 @@ private const val KeyId = "ShoppingItemEditFragment.KeyId"
 class ShoppingItemEditFragment : BaseFragment() {
 
     private var _menu: Menu? = null
-    private lateinit var _binding : FragmentShoppingItemEditBinding
+    private lateinit var _binding: FragmentShoppingItemEditBinding
     private lateinit var _viewModel: ShoppingItemEditViewModel
+    private var _menuItemSaveItem: MenuItem? = null
 
     override fun getTitle(context: Context): String {
         return context.getString(R.string.title_shopping_item_edit)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         LogUtil.debug("enter")
         setHasOptionsMenu(true)
-        this._binding = DataBindingUtil.inflate(inflater, R.layout.fragment_shopping_item_edit, container, false)
+        this._binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_shopping_item_edit,
+            container,
+            false
+        )
+
+        this._binding.shoppingItem.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                _menuItemSaveItem?.isEnabled = s.isNotEmpty()
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+            }
+        })
         return this._binding.root
     }
 
@@ -43,13 +68,13 @@ class ShoppingItemEditFragment : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
 
         if (arguments?.getLong(KeyId) != IdNew) {
-            val repo : ItemsRepository by inject()
             this._viewModel.getItem(arguments!!.getLong(KeyId))
             this._viewModel.isEdit = false
         }
 
         val factory = ShoppingItemEditViewModel.Factory(requireActivity().application)
-        this._viewModel = ViewModelProviders.of(this, factory).get(ShoppingItemEditViewModel::class.java)
+        this._viewModel =
+            ViewModelProviders.of(this, factory).get(ShoppingItemEditViewModel::class.java)
         this._binding.apply {
             model = _viewModel
             lifecycleOwner = activity
@@ -59,13 +84,13 @@ class ShoppingItemEditFragment : BaseFragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         LogUtil.debug("enter")
         super.onCreateOptionsMenu(menu, inflater)
-        if (IdNew == arguments?.getLong(
-                KeyId
-            ) ?: IdNew
-        ) {
-            inflater.inflate(R.menu.menu_edit_item_new, menu)
-        } else {
-            inflater.inflate(R.menu.menu_edit_item_edit, menu)
+
+        inflater.inflate(R.menu.menu_edit_item, menu)
+        this._menuItemSaveItem = menu.findItem(R.id.action_save_item)
+
+        if (IdNew == arguments?.getLong(KeyId) ?: IdNew) {
+            this._menuItemSaveItem?.isEnabled = false
+            menu.findItem(R.id.action_delete_item).isEnabled = false
         }
         this._menu = menu
     }

@@ -13,29 +13,6 @@ import jp.gr.java_conf.tenpokei.myshoppinglist.model.repository.ItemsRepository
  * ViewModel for ShoppingItemEditFragment
  */
 class ShoppingItemEditViewModel(val context: Application) : AndroidViewModel(context) {
-    //    private var _id: MutableLiveData<Long> = MutableLiveData()
-//    private var _item: MutableLiveData<String> = MutableLiveData()
-//    private var _memo: MutableLiveData<String?> = MutableLiveData()
-//
-//    var id: LiveData<Long> = _id
-//    var item: LiveData<String> = _item
-//    var memo: LiveData<String?> = _memo
-//
-//    @Bindable
-//    fun getItem() : String {
-//        return _item.value ?: ""
-//    }
-//    fun setItem(item: String) {
-//        _item.postValue(item)
-//    }
-//
-//    @Bindable
-//    fun getMemo() : String? {
-//        return _memo.value
-//    }
-//    fun setMemo(memo: String?) {
-//        _memo.postValue(memo)
-//    }
     var id: Long = 0L
     var done: Boolean = false
     var shoppingItem = ObservableField<String>("")
