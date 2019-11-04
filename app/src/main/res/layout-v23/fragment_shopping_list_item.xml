@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
 
         <variable
@@ -35,28 +36,33 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/strike_through"
-                android:visibility="@{viewModel.list[position].done ? View.VISIBLE : View.INVISIBLE}"/>
-        <TextView
-            android:id="@+id/shoppingItem"
-            style="@style/BasicTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:ellipsize="end"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:textColor="@{viewModel.list[position].done ? @color/doneText : @color/basicText}"
-            android:onClick="@{(view) -> viewModel.itemClick(position)}"
-            android:paddingStart="@dimen/half_margin"
-            android:paddingEnd="@dimen/half_margin"
-            android:text="@={viewModel.list[position].shoppingItem}"
-            tools:text="かいものあいてむかいものあいてむかいものあいてむかいものあいてむ" />
+                android:foreground="?android:attr/selectableItemBackground"
+                android:visibility="@{viewModel.list[position].done ? View.VISIBLE : View.INVISIBLE}" />
+
+            <TextView
+                android:id="@+id/shoppingItem"
+                style="@style/BasicTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:onClick="@{(view) -> viewModel.itemClick(position)}"
+                android:paddingStart="@dimen/half_margin"
+                android:paddingEnd="@dimen/half_margin"
+                android:text="@={viewModel.list[position].shoppingItem}"
+                android:textColor="@{viewModel.list[position].done ? @color/doneText : @color/basicText}"
+                tools:text="かいものあいてむかいものあいてむかいものあいてむかいものあいてむ" />
         </FrameLayout>
+
         <ImageButton
             android:id="@+id/deleteItem"
             android:layout_width="48dp"

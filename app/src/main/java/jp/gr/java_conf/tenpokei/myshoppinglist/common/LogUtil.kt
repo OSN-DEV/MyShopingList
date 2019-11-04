@@ -9,7 +9,8 @@ class LogUtil {
 
     companion object {
         fun debug(log: String) {
-            Log.d(tag, log)
+            val caller = Thread.currentThread().stackTrace[3]
+            Log.d(tag, "[${caller.fileName}:${caller.methodName}]${log}")
         }
     }
 }
