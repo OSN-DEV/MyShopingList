@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.EventBus
 
 interface ShoppingListItemViewModelCallback {
     fun update(position : Int)
+    fun updateAll()
 }
 
 class ShoppingListItemViewModel(val context: Application, private val callback : ShoppingListItemViewModelCallback) : AndroidViewModel(context) {
@@ -48,6 +49,37 @@ class ShoppingListItemViewModel(val context: Application, private val callback :
             _callback.update(position)
         }
         list.removeAt(position)
+    }
+
+    /**
+     * if more than one checked item, return true
+     */
+    fun hasDoneItems() : Boolean {
+        list.forEach{ item ->
+            item.value?.let {
+                if (it.done) {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+
+    /**
+     * delete checked item
+     */
+    fun deleteByDone() {
+        ItemsRepository().deleteByDone()
+        for(i in (list.size -1) downTo  0) {
+            list[i].value?.let {
+                if (it.done) {
+                    list.removeAt(i)
+                }
+
+            }
+        }
+        _callback.updateAll()
     }
 }
 

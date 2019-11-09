@@ -92,4 +92,14 @@ class ItemsRepository {
             .idEq(id)
             .execute()
     }
+
+
+    /**
+     * delete checked 'items'
+     */
+    fun deleteByDone() {
+        DatabaseHelper.getInstance(MyApplication.appContext).deleteFromItems()
+            .doneEq(true)
+            .execute()
+    }
 }

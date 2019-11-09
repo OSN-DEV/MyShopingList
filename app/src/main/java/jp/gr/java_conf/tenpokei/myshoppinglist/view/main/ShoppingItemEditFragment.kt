@@ -24,7 +24,6 @@ private const val KeyId = "ShoppingItemEditFragment.KeyId"
  */
 class ShoppingItemEditFragment : BaseFragment() {
 
-    private var _menu: Menu? = null
     private lateinit var _binding: FragmentShoppingItemEditBinding
     private lateinit var _viewModel: ShoppingItemEditViewModel
     private var _menuItemSaveItem: MenuItem? = null
@@ -86,7 +85,6 @@ class ShoppingItemEditFragment : BaseFragment() {
             this._menuItemSaveItem?.isEnabled = false
             menu.findItem(R.id.action_delete_item).isEnabled = false
         }
-        this._menu = menu
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

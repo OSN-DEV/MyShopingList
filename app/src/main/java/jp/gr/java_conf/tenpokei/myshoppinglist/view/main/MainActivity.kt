@@ -110,7 +110,8 @@ class MainActivity : AppCompatActivity() {
     @Suppress("unused", "UNUSED_PARAMETER")
     fun onMessageEvent(args: FinishFragmentEvent) {
         LogUtil.debug("enter")
-        this.shoppingItemEditFinished()
+        supportFragmentManager.popBackStack()
+        this.shoppingItemEditFinished(true)
     }
 
     /**
@@ -164,7 +165,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.addOnBackStackChangedListener {
             LogUtil.debug("count" + supportFragmentManager.backStackEntryCount)
             if (0 == supportFragmentManager.backStackEntryCount) {
-                shoppingItemEditFinished()
+                shoppingItemEditFinished(false)
             }
         }
 
@@ -184,8 +185,7 @@ class MainActivity : AppCompatActivity() {
         _toggle.isDrawerIndicatorEnabled = false
         _toggle.toolbarNavigationClickListener = View.OnClickListener {
             LogUtil.debug("enter")
-            supportFragmentManager.popBackStack()
-            shoppingItemEditFinished()
+            shoppingItemEditFinished(true)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -193,7 +193,10 @@ class MainActivity : AppCompatActivity() {
     /**
      * close shopping item edit
      */
-    private fun shoppingItemEditFinished() {
+    private fun shoppingItemEditFinished(pop:Boolean) {
+        if (pop) {
+            supportFragmentManager.popBackStack()
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         _toggle.isDrawerIndicatorEnabled = true
         _toggle.syncState()

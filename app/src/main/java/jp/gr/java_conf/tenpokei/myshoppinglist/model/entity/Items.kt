@@ -22,7 +22,7 @@ class Items {
     @Nullable // allows NULL (default: NOT NULL)
     var memo: String? = null
 
-    @Column
+    @Column(indexed = true)
     var done: Boolean = false
 
 

@@ -1,9 +1,7 @@
 package jp.gr.java_conf.tenpokei.myshoppinglist.view.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
@@ -28,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_shopping_list.*
  */
 class ShoppingListFragment : Fragment() {
     private lateinit var _viewModel: ShoppingListItemViewModel
+    private var _menuItemDeleteCheckedItem: MenuItem? = null
 
     /**
      * Recycler adapter
@@ -38,6 +37,10 @@ class ShoppingListFragment : Fragment() {
 
         override fun update(position: Int) {
             notifyItemChanged(position)
+        }
+
+        override fun updateAll() {
+            notifyDataSetChanged()
         }
 
         class ViewHolder(var binding: FragmentShoppingListItemBinding) :
@@ -78,6 +81,7 @@ class ShoppingListFragment : Fragment() {
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         LogUtil.debug("enter")
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_shopping_list, container, false)
     }
 
@@ -92,12 +96,39 @@ class ShoppingListFragment : Fragment() {
                 it.application,
                 object : ShoppingListItemViewModelCallback {
                     override fun update(position: Int) {
+                        _menuItemDeleteCheckedItem?.isEnabled = _viewModel.hasDoneItems()
                         shoppingList.adapter?.notifyItemChanged(position)
+                    }
+
+                    override fun updateAll() {
+                        _menuItemDeleteCheckedItem?.isEnabled = _viewModel.hasDoneItems()
+                        shoppingList.adapter?.notifyDataSetChanged()
                     }
                 })
             shoppingList.layoutManager = LinearLayoutManager(it, LinearLayoutManager.VERTICAL, false)
             shoppingList.adapter = RecyclerAdapter(_viewModel, it)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        LogUtil.debug("enter")
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.menu_main, menu)
+        this._menuItemDeleteCheckedItem = menu.findItem(R.id.action_delete_checked_items)
+        this._menuItemDeleteCheckedItem?.isEnabled = _viewModel.hasDoneItems()
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        LogUtil.debug("enter")
+        when (item.itemId) {
+            R.id.action_delete_checked_items -> {
+                LogUtil.debug("enter")
+                _viewModel.deleteByDone()
+            }
+        }
+        return true
     }
 
     /**
