@@ -55,6 +55,12 @@ class ShoppingItemEditViewModel(val context: Application) : AndroidViewModel(con
         }
     }
 
+    /**
+     * delete shopping item by id
+     */
+    fun deleteById() {
+        ItemsRepository().deleteById(this.id)
+    }
 
     class Factory(private val application: Application) : ViewModelProvider.NewInstanceFactory() {
         @Suppress("UNCHECKED_CAST")

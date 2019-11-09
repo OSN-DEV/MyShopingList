@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.data.ItemModel
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.repository.ItemsRepository
+import org.greenrobot.eventbus.EventBus
 
 interface ShoppingListItemViewModelCallback {
     fun update(position : Int)
@@ -32,8 +33,9 @@ class ShoppingListItemViewModel(val context: Application, private val callback :
 
     }
 
-    fun itemClick (index: Int) {
+    fun itemClick (position: Int) {
         LogUtil.debug("enter")
+        EventBus.getDefault().post(list[position].value)
     }
 
     /**

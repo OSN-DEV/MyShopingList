@@ -11,9 +11,10 @@ import androidx.core.view.GravityCompat
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.SingleActivity
-import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragment
+import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragmentEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.ImportClickEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.LicenseClickEvent
+import jp.gr.java_conf.tenpokei.myshoppinglist.model.data.ItemModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -107,9 +108,19 @@ class MainActivity : AppCompatActivity() {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     @Suppress("unused", "UNUSED_PARAMETER")
-    fun onMessageEvent(args: FinishFragment) {
+    fun onMessageEvent(args: FinishFragmentEvent) {
         LogUtil.debug("enter")
         this.shoppingItemEditFinished()
+    }
+
+    /**
+     * Finish fragment
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Suppress("unused", "UNUSED_PARAMETER")
+    fun onMessageEvent(args: ItemModel) {
+        LogUtil.debug("enter")
+        this.showShoppingItemEdit(args.id)
     }
 
 

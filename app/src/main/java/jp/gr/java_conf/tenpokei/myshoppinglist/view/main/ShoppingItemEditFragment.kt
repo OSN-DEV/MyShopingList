@@ -12,8 +12,9 @@ import jp.gr.java_conf.tenpokei.myshoppinglist.R
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.BaseFragment
 import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.databinding.FragmentShoppingItemEditBinding
-import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragment
+import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragmentEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.view.ShoppingItemEditViewModel
+import kotlinx.android.synthetic.main.fragment_shopping_list_item.*
 import org.greenrobot.eventbus.EventBus
 
 private const val KeyId = "ShoppingItemEditFragment.KeyId"
@@ -57,13 +58,14 @@ class ShoppingItemEditFragment : BaseFragment() {
         LogUtil.debug("enter")
         super.onActivityCreated(savedInstanceState)
 
-        if (arguments?.getLong(KeyId) != IdNew) {
-            this._viewModel.getItem(arguments !!.getLong(KeyId))
-            this._viewModel.isEdit = false
-        }
-
         val factory = ShoppingItemEditViewModel.Factory(requireActivity().application)
         this._viewModel = ViewModelProviders.of(this, factory).get(ShoppingItemEditViewModel::class.java)
+        if (arguments?.getLong(KeyId) != IdNew) {
+            this._viewModel.getItem(arguments !!.getLong(KeyId))
+            this._viewModel.id = arguments !!.getLong(KeyId)
+            this._viewModel.isEdit = true
+        }
+
         this._binding.apply {
             model = _viewModel
             lifecycleOwner = activity
@@ -90,6 +92,9 @@ class ShoppingItemEditFragment : BaseFragment() {
             R.id.action_save_item -> {
                 this.saveItem()
             }
+            R.id.action_delete_item -> {
+                this.deleteItem()
+            }
         }
         return true
     }
@@ -101,7 +106,17 @@ class ShoppingItemEditFragment : BaseFragment() {
     private fun saveItem() {
         LogUtil.debug("enter")
         this._viewModel.update()
-        EventBus.getDefault().post(FinishFragment())
+        EventBus.getDefault().post(FinishFragmentEvent())
+    }
+
+
+    /**
+     * save item
+     */
+    private fun deleteItem() {
+        LogUtil.debug("enter")
+        this._viewModel.deleteById()
+        EventBus.getDefault().post(FinishFragmentEvent())
     }
 
 

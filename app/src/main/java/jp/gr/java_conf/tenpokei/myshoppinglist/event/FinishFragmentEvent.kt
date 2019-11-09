@@ -1,4 +1,4 @@
 package jp.gr.java_conf.tenpokei.myshoppinglist.event
 
-class FinishFragment {
+class FinishFragmentEvent {
 }
