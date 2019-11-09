@@ -71,7 +71,7 @@ class ShoppingItemEditFragment : BaseFragment() {
             lifecycleOwner = activity
         }
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        imm?.showSoftInput(this._binding.root, 0)
+        imm?.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 
     }
 
