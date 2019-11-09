@@ -140,11 +140,8 @@ class MainActivity : AppCompatActivity() {
         // if setSupportActionBar call after create toggle instance
         // toolbarNavigationClickListener not working(call option menu selected event)
         setSupportActionBar(toolbar)
-        _toggle = object : ActionBarDrawerToggle(
-            this, navigationMenu, toolbar,
-            R.string.navigation_menu_open,
-            R.string.navigation_menu_close
-        ) {
+        _toggle = object : ActionBarDrawerToggle(this, navigationMenu, toolbar, R.string.navigation_menu_open,
+            R.string.navigation_menu_close) {
         }
 
         navigationMenu.addDrawerListener(_toggle)
@@ -164,6 +161,13 @@ class MainActivity : AppCompatActivity() {
             ShoppingListFragment.newInstance()
         transition.replace(R.id.container, shoppingList)
 
+        supportFragmentManager.addOnBackStackChangedListener {
+            LogUtil.debug("count" + supportFragmentManager.backStackEntryCount)
+            if (0 == supportFragmentManager.backStackEntryCount) {
+                shoppingItemEditFinished()
+            }
+        }
+
         transition.commit()
     }
 
@@ -177,10 +181,10 @@ class MainActivity : AppCompatActivity() {
         transition.addToBackStack(null)
 
         transition.commit()
-
         _toggle.isDrawerIndicatorEnabled = false
         _toggle.toolbarNavigationClickListener = View.OnClickListener {
             LogUtil.debug("enter")
+            supportFragmentManager.popBackStack()
             shoppingItemEditFinished()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -190,7 +194,6 @@ class MainActivity : AppCompatActivity() {
      * close shopping item edit
      */
     private fun shoppingItemEditFinished() {
-        supportFragmentManager.popBackStack()
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         _toggle.isDrawerIndicatorEnabled = true
         _toggle.syncState()

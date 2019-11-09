@@ -24,7 +24,7 @@ class NavigationMenu : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_navigation_menu, container, false)
         view.appVersion.text = BuildConfig.VERSION_NAME
-        view.menuImport.setOnClickListener { this.onImportClick() }
+//        view.menuImport.setOnClickListener { this.onImportClick() }
         view.menuLicense.setOnClickListener { this.onLicenseClick() }
         return view
     }

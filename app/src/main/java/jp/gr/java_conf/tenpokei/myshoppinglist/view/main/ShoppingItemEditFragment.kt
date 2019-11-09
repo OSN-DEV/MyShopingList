@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import jp.gr.java_conf.tenpokei.myshoppinglist.R
@@ -14,7 +15,6 @@ import jp.gr.java_conf.tenpokei.myshoppinglist.common.LogUtil
 import jp.gr.java_conf.tenpokei.myshoppinglist.databinding.FragmentShoppingItemEditBinding
 import jp.gr.java_conf.tenpokei.myshoppinglist.event.FinishFragmentEvent
 import jp.gr.java_conf.tenpokei.myshoppinglist.model.view.ShoppingItemEditViewModel
-import kotlinx.android.synthetic.main.fragment_shopping_list_item.*
 import org.greenrobot.eventbus.EventBus
 
 private const val KeyId = "ShoppingItemEditFragment.KeyId"
@@ -70,6 +70,9 @@ class ShoppingItemEditFragment : BaseFragment() {
             model = _viewModel
             lifecycleOwner = activity
         }
+        val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        imm?.showSoftInput(this._binding.root, 0)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
