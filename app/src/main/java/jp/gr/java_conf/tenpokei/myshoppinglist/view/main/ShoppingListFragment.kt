@@ -20,8 +20,7 @@ import kotlinx.android.synthetic.main.fragment_shopping_list.*
 // https://spin.atomicobject.com/2019/06/08/kotlin-recyclerview-data-binding/
 // https://qiita.com/tsumuchan/items/c357b543ccb771e11621
 // http://e10dokup.hateblo.jp/entry/2017/05/06/024923
-
-
+// https://qiita.com/verno3632/items/a97942a461204af4f421
 /**
  * Shopping List
  */
