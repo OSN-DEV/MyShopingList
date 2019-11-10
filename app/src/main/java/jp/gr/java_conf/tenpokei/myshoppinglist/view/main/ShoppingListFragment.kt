@@ -33,15 +33,7 @@ class ShoppingListFragment : Fragment() {
      */
     class RecyclerAdapter(private val viewModel: ShoppingListItemViewModel,
                           private val parentLifecycleOwner: LifecycleOwner) :
-        RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(), ShoppingListItemViewModelCallback {
-
-        override fun update(position: Int) {
-            notifyItemChanged(position)
-        }
-
-        override fun updateAll() {
-            notifyDataSetChanged()
-        }
+        RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
         class ViewHolder(var binding: FragmentShoppingListItemBinding) :
             RecyclerView.ViewHolder(binding.root)
@@ -99,7 +91,10 @@ class ShoppingListFragment : Fragment() {
                         _menuItemDeleteCheckedItem?.isEnabled = _viewModel.hasDoneItems()
                         shoppingList.adapter?.notifyItemChanged(position)
                     }
-
+                    override fun removed(position: Int) {
+                        _menuItemDeleteCheckedItem?.isEnabled = _viewModel.hasDoneItems()
+                        shoppingList.adapter?.notifyItemRemoved(position)
+                    }
                     override fun updateAll() {
                         _menuItemDeleteCheckedItem?.isEnabled = _viewModel.hasDoneItems()
                         shoppingList.adapter?.notifyDataSetChanged()

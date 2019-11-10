@@ -21,7 +21,10 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-
+// https://codeday.me/jp/qa/20181208/56445.html
+// https://riptutorial.com/ja/android/example/19883/%E3%83%95%E3%83%A9%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E9%96%93%E3%81%AE%E9%81%B7%E7%A7%BB%E3%82%92%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E5%8C%96%E3%81%99%E3%82%8B
+// http://android.sakuraweb.com/wordpress/2017/04/17/fragment%E3%82%92%E3%82%A2%E3%83%8B%E3%83%A1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%95%E3%81%9B%E3%81%A6%E9%81%B7%E7%A7%BB%E3%81%99%E3%82%8B/
+// https://github.com/lgvalle/Material-Animations
 class MainActivity : AppCompatActivity() {
     private lateinit var _toggle: ActionBarDrawerToggle
 
@@ -38,7 +41,6 @@ class MainActivity : AppCompatActivity() {
         }
         fab.setOnClickListener {
             showShoppingItemEdit()
-            fab.hide()
         }
     }
 
@@ -188,6 +190,7 @@ class MainActivity : AppCompatActivity() {
             shoppingItemEditFinished(true)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        fab.hide()
     }
 
     /**

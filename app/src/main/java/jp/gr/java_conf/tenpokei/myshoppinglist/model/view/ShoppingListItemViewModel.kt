@@ -10,6 +10,7 @@ import org.greenrobot.eventbus.EventBus
 
 interface ShoppingListItemViewModelCallback {
     fun update(position : Int)
+    fun removed(position: Int)
     fun updateAll()
 }
 
@@ -46,9 +47,9 @@ class ShoppingListItemViewModel(val context: Application, private val callback :
         LogUtil.debug("enter")
         list[position].value?.let { value ->
             ItemsRepository().deleteById(value.id)
-            _callback.update(position)
+            list.removeAt(position)
         }
-        list.removeAt(position)
+        _callback.removed(position)
     }
 
     /**
