@@ -1,0 +1,1 @@
+ビューやビューモデルで共通に利用するユーティリティを置きます。Data bindingのBindingAdapterなどもここに置きます。

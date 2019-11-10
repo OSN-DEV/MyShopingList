@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="jp.gr.java_conf.tenpokei.myshoppinglist.model.view.ShoppingItemEditViewModel" />
+    </data>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/basic_margin"
+        tools:context=".view.main.ShoppingItemEditFragment">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_marginEnd="@dimen/basic_margin"
+                android:text="@string/caption_shopping_item" />
+
+            <EditText
+                android:id="@+id/shopping_item"
+                style="@style/BasicTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:autofillHints="@string/caption_shopping_item"
+                android:hint="@string/empty"
+                android:inputType="text"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:text="@={ model.shoppingItem}">
+
+                <requestFocus />
+            </EditText>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/basic_margin">
+
+            <TextView
+                style="@style/BasicTextStyle"
+                android:layout_marginEnd="@dimen/basic_margin"
+                android:text="@string/caption_memo" />
+
+            <EditText
+                style="@style/BasicTextStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:autofillHints="@string/caption_memo"
+                android:hint="@string/empty"
+                android:inputType="text"
+                android:maxLength="200"
+                android:maxLines="1"
+                android:text="@={model.memo}" />
+        </TableRow>
+
+    </TableLayout>
+</layout>
