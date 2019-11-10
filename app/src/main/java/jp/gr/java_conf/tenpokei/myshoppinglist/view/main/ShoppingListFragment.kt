@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_shopping_list.*
 // https://qiita.com/tsumuchan/items/c357b543ccb771e11621
 // http://e10dokup.hateblo.jp/entry/2017/05/06/024923
 
+
 /**
  * Shopping List
  */
