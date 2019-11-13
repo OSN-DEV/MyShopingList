@@ -19,10 +19,14 @@
     <LinearLayout
         android:id="@+id/shoppingItemRow"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="64dp"
         android:orientation="horizontal"
-        android:padding="@dimen/basic_margin"
+        android:paddingStart="@dimen/basic_margin"
+        android:paddingTop="@dimen/half_margin"
+        android:paddingEnd="@dimen/basic_margin"
+        android:paddingBottom="@dimen/half_margin"
         tools:context=".view.main.ShoppingListFragment">
+
 
         <CheckBox
             android:id="@+id/done"
